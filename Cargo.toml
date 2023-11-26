@@ -2,7 +2,7 @@
 name = "ds18b20"
 version = "0.1.1"
 authors = ["Nathan Fox <fuchsnj@gmail.com>"]
-edition = "2018"
+edition = "2021"
 license = "MIT/Apache-2.0"
 repository = "https://github.com/fuchsnj/ds18b20"
 keywords = ["onewire", "embedded-hal-driver", "ds18b20", "temperature", "sensor"]
@@ -14,4 +14,4 @@ A Rust DS18B20 temperature sensor driver for [embedded-hal](https://github.com/r
 
 [dependencies]
 one-wire-bus = "0.1.1"
-embedded-hal = {version="0.2.3", features=["unproven"]}
+embedded-hal = {version="0.2.7", features=["unproven"]}
