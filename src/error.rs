@@ -1,15 +1,21 @@
-pub type DS18B20Result<T, E> = Result<T, DS18B20Error<E>>;
+use one_wire_hal::error::ErrorKind;
 
 #[derive(Debug, Copy, Clone)]
-pub enum DS18B20Error<E> {
-    OneWireError(E),
+pub enum Error {
+    OneWireError,
     FamilyCodeMismatch,
     CrcMismatch,
     Timeout,
+    Other,
 }
 
-impl<E> From<E> for DS18B20Error<E> {
-    fn from(err: E) -> Self {
-        DS18B20Error::OneWireError(err)
+
+impl<E: one_wire_hal::error::Error> From<E> for Error {
+    fn from(value: E) -> Self {
+        match value.kind() {
+            ErrorKind::FamilyCodeMismatch => Error::FamilyCodeMismatch,
+            ErrorKind::CrcMismatch => Error::CrcMismatch,
+            _ => Error::OneWireError,
+        }
     }
 }
