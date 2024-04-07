@@ -1,7 +1,4 @@
 # DS18B20 temperature sensor
-[![Build Status](https://travis-ci.org/fuchsnj/ds18b20.svg?branch=master)](https://travis-ci.org/fuchsnj/ds18b20)
-[![crates.io](https://img.shields.io/crates/v/ds18b20.svg)](https://crates.io/crates/ds18b20)
-[![API](https://docs.rs/ds18b20/badge.svg)](https://docs.rs/ds18b20)
 
 A Rust driver for the [DS18B20](https://www.analog.com/media/en/technical-documentation/data-sheets/ds18b20.pdf)
 temperature sensor.
