@@ -3,12 +3,23 @@
 [![crates.io](https://img.shields.io/crates/v/ds18b20.svg)](https://crates.io/crates/ds18b20)
 [![API](https://docs.rs/ds18b20/badge.svg)](https://docs.rs/ds18b20)
 
-A Rust [DS18B20](https://www.taydaelectronics.com/datasheets/A-072.pdf) temperature sensor driver for [embedded-hal](https://github.com/rust-embedded/embedded-hal) 
+A Rust driver for the [DS18B20](https://www.analog.com/media/en/technical-documentation/data-sheets/ds18b20.pdf)
+temperature sensor.
 
-This device uses the 1-wire protocol, and requires using the [one-wire-bus](https://crates.io/crates/one-wire-bus)
-library for the 1-wire bus.
+This is a "fork" of the already existing [ds18b20](https://crates.io/crates/ds18b20) crate, which seems not to be
+maintained anymore.
+
+> [!NOTE]  
+> This project is a work in progress and might not yet ready for use. Using it e.g. i.c.w. a STM32F303 is still not
+> possible since the [cortex-m](https://github.com/rust-embedded/cortex-m) crate is not yet compatible with the latest
+> version of the embedded-hal crate.
+
+This device uses the 1-wire protocol, and requires using the [one-wire-hal](https://github.com/bartweber/one-wire-hal)
+crate for the 1-wire bus.
 
 ## Quick Start
+
+TODO: rewrite examples
 
 ### Get Temperature
 ```rust
@@ -99,3 +110,10 @@ Initial data: SensorData { temperature: 85.0, resolution: Bits12, alarm_temp_low
 New data: SensorData { temperature: 85.0, resolution: Bits12, alarm_temp_low: 18, alarm_temp_high: 24 }
 EEPROM data: SensorData { temperature: 85.0, resolution: Bits12, alarm_temp_low: 18, alarm_temp_high: 24 }
 ```
+
+## To Do
+
+- [ ] Write tests for `Ds18b20`
+- [ ] Publish the crate
+- [ ] Add documentation
+- [ ] Add working examples
