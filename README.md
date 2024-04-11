@@ -12,7 +12,7 @@ maintained anymore.
 > version of the embedded-hal crate.
 
 This device uses the 1-wire protocol, and requires using the [one-wire-hal](https://github.com/bartweber/one-wire-hal)
-crate for the 1-wire bus.
+and implementation for the 1-wire bus.
 
 ## Quick Start
 
@@ -111,6 +111,7 @@ EEPROM data: SensorData { temperature: 85.0, resolution: Bits12, alarm_temp_low:
 ## To Do
 
 - [ ] Write tests for `Ds18b20`
+- [ ] Add CI/CD
 - [ ] Publish the crate
 - [ ] Add documentation
 - [ ] Add working examples

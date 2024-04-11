@@ -13,5 +13,5 @@ A Rust driver for the DS18B20 temperature sensor using the [one-wire-hal](https:
 """
 
 [dependencies]
-one-wire-hal = { path = "../one-wire-hal" }
+one-wire-hal = { git = "https://github.com/bartweber/one-wire-hal", branch = "main" }
 embedded-hal = { version = "1.0.0" }
