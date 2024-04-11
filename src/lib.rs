@@ -32,17 +32,16 @@ pub struct SensorData {
     pub alarm_temp_high: i8,
 }
 
-pub struct Ds18b20<O> {
-    one_wire: O,
+pub struct Ds18b20 {
     address: Address,
 }
 
-impl<O: OneWire> Ds18b20<O> {
+impl Ds18b20 {
     /// Checks that the given address contains the correct family code, reads
     /// configuration data, then returns a device
-    pub fn new(one_wire: O, address: Address) -> Result<Ds18b20<O>, Error> {
+    pub fn new(address: Address) -> Result<Ds18b20, Error> {
         if address.family_code() == FAMILY_CODE {
-            Ok(Ds18b20 { one_wire, address })
+            Ok(Ds18b20 { address })
         } else {
             Err(Error::FamilyCodeMismatch)
         }
@@ -58,10 +57,11 @@ impl<O: OneWire> Ds18b20<O> {
     /// The amount of time you need to wait depends on the current resolution configuration
     pub fn start_temp_measurement(
         &mut self,
+        one_wire: &mut impl OneWire,
         delay: &mut impl DelayNs,
     ) -> Result<(), Error>
     {
-        self.one_wire.send_command(commands::CONVERT_TEMP, Some(&self.address), delay)?;
+        one_wire.send_command(commands::CONVERT_TEMP, Some(&self.address), delay)?;
         Ok(())
     }
 
@@ -80,13 +80,14 @@ impl<O: OneWire> Ds18b20<O> {
         alarm_temp_low: i8,
         alarm_temp_high: i8,
         resolution: Resolution,
+        one_wire: &mut impl OneWire,
         delay: &mut impl DelayNs,
     ) -> Result<(), Error>
     {
-        self.one_wire.send_command(commands::WRITE_SCRATCHPAD, Some(&self.address), delay)?;
-        self.one_wire.write_byte(alarm_temp_high.to_ne_bytes()[0], delay)?;
-        self.one_wire.write_byte(alarm_temp_low.to_ne_bytes()[0], delay)?;
-        self.one_wire.write_byte(resolution.to_config_register(), delay)?;
+        one_wire.send_command(commands::WRITE_SCRATCHPAD, Some(&self.address), delay)?;
+        one_wire.write_byte(alarm_temp_high.to_ne_bytes()[0], delay)?;
+        one_wire.write_byte(alarm_temp_low.to_ne_bytes()[0], delay)?;
+        one_wire.write_byte(resolution.to_config_register(), delay)?;
         Ok(())
     }
 
